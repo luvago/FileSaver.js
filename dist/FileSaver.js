@@ -30,7 +30,7 @@
     if (typeof opts === 'undefined') opts = {
       autoBom: false
     };else if (typeof opts !== 'object') {
-      console.warn('Depricated: Expected third argument to be a object');
+      console.warn('Deprecated: Expected third argument to be a object');
       opts = {
         autoBom: !opts
       };
@@ -99,7 +99,7 @@
       a.href = blob;
 
       if (a.origin !== location.origin) {
-        corsEnabled(a.href) ? download(blob, name, opts) : click(a, a.target = '_blank');
+        corsEnabled(a.href) ? download(blob, name, opts) : click(a, a.target = '_self');
       } else {
         click(a);
       }
@@ -124,7 +124,7 @@
       } else {
         var a = document.createElement('a');
         a.href = blob;
-        a.target = '_blank';
+        a.target = '_self';
         setTimeout(function () {
           click(a);
         });
@@ -135,8 +135,8 @@
   } // Fallback to using FileReader and a popup
   : function saveAs(blob, name, opts, popup) {
     // Open a popup immediately do go around popup blocker
-    // Mostly only avalible on user interaction and the fileReader is async so...
-    popup = popup || open('', '_blank');
+    // Mostly only available on user interaction and the fileReader is async so...
+    popup = popup || open('', '_self');
 
     if (popup) {
       popup.document.title = popup.document.body.innerText = 'downloading...';
@@ -150,7 +150,7 @@
     var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent);
 
     if ((isChromeIOS || force && isSafari) && typeof FileReader === 'object') {
-      // Safari doesn't allow downloading of blob urls
+      // Safari doesn't allow downloading of blob URLs
       var reader = new FileReader();
 
       reader.onloadend = function () {
