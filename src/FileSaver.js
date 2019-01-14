@@ -89,7 +89,7 @@ var saveAs = _global.saveAs || (
       if (a.origin !== location.origin) {
         corsEnabled(a.href)
           ? download(blob, name, opts)
-          : click(a, a.target = '_blank')
+          : click(a, a.target = '_self')
       } else {
         click(a)
       }
@@ -112,7 +112,7 @@ var saveAs = _global.saveAs || (
       } else {
         var a = document.createElement('a')
         a.href = blob
-        a.target = '_blank'
+        a.target = '_self'
         setTimeout(function () { click(a) })
       }
     } else {
@@ -124,7 +124,7 @@ var saveAs = _global.saveAs || (
   : function saveAs (blob, name, opts, popup) {
     // Open a popup immediately do go around popup blocker
     // Mostly only available on user interaction and the fileReader is async so...
-    popup = popup || open('', '_blank')
+    popup = popup || open('', '_self')
     if (popup) {
       popup.document.title =
       popup.document.body.innerText = 'downloading...'
